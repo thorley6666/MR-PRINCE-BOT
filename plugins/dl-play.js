@@ -1,173 +1,83 @@
-import fetch from "node-fetch";
-import ytdl from 'ytdl-core';
-import yts from 'youtube-yts';
-import fs from 'fs';
-import { pipeline } from 'stream';
-import { promisify } from 'util';
-import os from 'os';
+/*
+* Created By Shyro
+* Copyright 2023 2024 ( Airi Ai )
+*/
 
+const ytdl = require('ytdl-core');
+const yts = require('yt-search');
+const fs = require('fs');
+const { pipeline } = require('stream');
+const { promisify } = require('util');
 const streamPipeline = promisify(pipeline);
 
-const handler = async (m, {
-    conn,
-    command,
-    text,
-    args,
-    usedPrefix
-}) => {
-    if (!text) throw `*_give a text to search_* \n*_Example: ${usedPrefix + command} A Subz gumbad waly naat Ahmed Raza Qadri_*`;
-    conn.GURUPLAY = conn.GURUPLAY ? conn.GURUPLAY : {};
-    await conn.reply(m.chat, wait, m);
-    const result = await searchAndDownloadMusic(text);
-    const infoText = `🎧🎼『 *ᴘʀɪɴᴄᴇ ᴘʟᴀʏᴇʀ* 』🎼🎧
-
-    
-   
-*🎶ᖇEᑭᒪY ᗯITᕼ ᑎᑌᗰᗷEᖇ TO GET YOᑌᖇ ᗩᑌᗪIO🎵*`;
-
-const orderedLinks = result.allLinks.map((link, index) => {
-    const sectionNumber = index + 1;
-    const {
-        title,
-        url
-    } = link;
-    return `*${sectionNumber}.* ${title}`;
-});
-
-    const orderedLinksText = orderedLinks.join("\n\n");
-    const fullText = `${infoText}\n\n${orderedLinksText}`;
-    const {
-        key
-    } = await conn.reply(m.chat, fullText, m);
-    conn.GURUPLAY[m.sender] = {
-        result,
-        key,
-        timeout: setTimeout(() => {
-            conn.sendMessage(m.chat, {
-                delete: key
-            });
-            delete conn.GURUPLAY[m.sender];
-        }, 150 * 1000),
+function trimYouTubeUrl(url) {
+  const trimmedUrl = url.split('?')[0];
+  return trimmedUrl;
+}
+const handler = async (m, { conn, command, text, usedPrefix }) => {
+  if (!text) throw `🚩 Input query!`;
+  m.react('🕑');
+  try {
+    let trimmedUrl = trimYouTubeUrl(text);
+    let search = await yts(trimmedUrl);
+    if (!search) throw 'Not Found, Try Another Title';
+    let vid = search.all[0];
+    let { title, thumbnail, timestamp, views, ago, url } = vid;
+    let caption = `┏━━ 「 PRINCE PLAYER 」 ━━┓\n`;
+    caption += `┃ ❖ Title: ${title}\n`;
+    caption += `┃ ❖ Duration: ${timestamp}\n`;
+    caption += `┃ ❖ Views: ${views}\n`;
+    caption += `┃ ❖ Upload: ${ago}\n`;
+    caption += `┗━━━━━━━━━━━━━━━━━━━━━┅`;
+    conn.sendMessage(m.chat, {
+			text: Func.texted('monospace', caption),
+			contextInfo: {
+				forwardingScore: 2024,
+				isForwarded: false,
+				mentionedJid: [m.sender],
+				externalAdReply: {
+					showAdAttribution: true,
+					title: Func.Styles("Powered By Airi Ai"),
+					body: m.name + ' ' + ucapan,
+					mediaType: 1,
+					sourceUrl: null,
+					thumbnailUrl: thumbnail,
+					renderLargerThumbnail: true
+				}
+			}
+		}, {
+			quoted: m
+		})
+    const audioStream = ytdl(url, {
+      filter: 'audioonly',
+      quality: 'highestaudio',
+    });
+    const writableStream = fs.createWriteStream(`./tmp/${title}.mp3`);
+    await streamPipeline(audioStream, writableStream);
+    let doc = {
+      audio: {
+        url: `./tmp/${title}.mp3`
+      },
+      mimetype: 'audio/mp4',
+      fileName: `${title}`,
     };
+    await conn.sendMessage(m.chat, doc, { quoted: m });
+    fs.unlink(`./tmp/${title}.mp3`, (err) => {
+      if (err) {
+        console.error(`Failed to delete audio file: ${err}`);
+      } else {
+        console.log(`Deleted audio file: ./tmp/${title}.mp3`);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    throw 'An error occurred while processing the request.';
+  }
 };
 
-handler.before = async (m, {
-    conn
-}) => {
-    conn.GURUPLAY = conn.GURUPLAY ? conn.GURUPLAY : {};
-    if (m.isBaileys || !(m.sender in conn.GURUPLAY)) return;
-    const {
-        result,
-        key,
-        timeout
-    } = conn.GURUPLAY[m.sender];
-    console.log(conn.GURUPLAY)
-    if (!m.quoted || m.quoted.id !== key.id || !m.text) return;
-    const choice = m.text.trim();
-    const inputNumber = Number(choice);
-    if (inputNumber >= 1 && inputNumber <= result.allLinks.length) {
-        const selectedUrl = result.allLinks[inputNumber - 1].url;
-        console.log("selectedUrl", selectedUrl)
-    let title = generateRandomName();
-        const audioStream = ytdl(selectedUrl, {
-            filter: 'audioonly',
-            quality: 'highestaudio',
-        });
-    
-      
-        
-        const tmpDir = os.tmpdir();
-        
-        
-        const writableStream = fs.createWriteStream(`${tmpDir}/${title}.mp3`);
-    
-        
-        await streamPipeline(audioStream, writableStream);
-
-        const doc = {
-            audio: {
-            url: `${tmpDir}/${title}.mp3`
-            },
-            mimetype: 'audio/mpeg',
-            ptt: false,
-            waveform: [100, 0, 0, 0, 0, 0, 100],
-            fileName: `${title}`,
-        
-        };
-    
-        await conn.sendMessage(m.chat, doc, { quoted: m });
-    
-    
-       
-
-        
-    } else {
-        m.reply("Invalid sequence number. Please select the appropriate number from the list above.\nBetween 1 to " + result.allLinks.length);
-    }
-};
-
-handler.help = ["play"];
-handler.tags = ["downloader"];
+handler.help = ['play'].map((v) => v + ' *<query>*');
+handler.tags = ['downloader'];
+handler.limit = true
 handler.command = /^(play)$/i;
-handler.limit = false;
-export default handler;
 
-function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return "0 B";
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-}
-
-async function searchAndDownloadMusic(query) {
-    try {
-        const { videos } = await yts(query);
-        if (!videos.length) return "Sorry, no video results were found for this search.";
-
-        const allLinks = videos.map(video => ({
-            title: video.title,
-            url: video.url,
-        }));
-
-        const jsonData = {
-            title: videos[0].title,
-            description: videos[0].description,
-            duration: videos[0].duration,
-            author: videos[0].author.name,
-            allLinks: allLinks,
-            videoUrl: videos[0].url,
-            thumbnail: videos[0].thumbnail,
-        };
-
-        return jsonData;
-    } catch (error) {
-        return "Error: " + error.message;
-    }
-}
-
-
-async function fetchVideoBuffer() {
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        });
-        return await response.buffer();
-    } catch (error) {
-        return null;
-    }
-}
-
-function generateRandomName() {
-    const adjectives = ["happy", "sad", "funny", "brave", "clever", "kind", "silly", "wise", "gentle", "bold"];
-    const nouns = ["cat", "dog", "bird", "tree", "river", "mountain", "sun", "moon", "star", "cloud"];
-    
-    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-    
-    return randomAdjective + "-" + randomNoun;
-            }
+module.exports = handler;
