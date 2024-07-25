@@ -12,7 +12,8 @@ if (!args[0]) throw `✳️ Provide Facebook Link\n\n📌 EXAMPLE:\n*${usedPrefi
   if (res.status !== 200) {
     m.reply(`Error: ${res.status} ${res.statusText}`)
   } else {
-    conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `${vidcap}`, m)
+   
+    conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `Here is your video`, m)
     m.react(done)
   }
 } catch (error) {
