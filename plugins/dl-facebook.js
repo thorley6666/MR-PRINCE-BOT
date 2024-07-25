@@ -6,16 +6,18 @@ if (!args[0]) throw `✳️ Provide Facebook Link\n\n📌 EXAMPLE:\n*${usedPrefi
   m.react(rwait)
 
   try {
-    let res = await fetch(global.API('fgmods', '/api/downloader/fbdl', { url: args[0] }, 'apikey'))
-    let data = await res.json()
+  let res = await fetch(global.API('fgmods', '/api/downloader/fbdl', { url: args[0] }, 'apikey'))
+  let data = await res.json()
 
-    
-    
+  if (res.status !== 200) {
+    m.reply(`Error: ${res.status} ${res.statusText}`)
+  } else {
     conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `${vidcap}`, m)
     m.react(done)
-  } catch (error) {
-    m.reply(error)
   }
+} catch (error) {
+  m.reply(error)
+}
 }
 handler.help = ['facebook'].map(v => v + ' <url>')
 handler.tags = ['dl']
