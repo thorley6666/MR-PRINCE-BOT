@@ -1,6 +1,11 @@
 let generateWAMessageFromContent = await (await import('@whiskeysockets/baileys')).default;
 import * as fs from 'fs';
 
+
+
+global.md = "https://github.com/PRINCE-GDS/MR-PRINCE-BOT"
+
+
 const handler = async (m, { conn, text, isOwner, isAdmin }) => {
   try {
     const q = m.quoted ? m.quoted : m;
@@ -17,7 +22,7 @@ const handler = async (m, { conn, text, isOwner, isAdmin }) => {
     const isMedia = /image|video|sticker|audio/.test(mime);
     const more = String.fromCharCode(8206);
     const masss = more.repeat(850);
-    const htextos = `${text ? text : '*Hey Reply with media to add caption*'}`;
+    const htextos = `${text ? text : '*Huh..🙃*'}`;
     if ((isMedia && quoted.mtype === 'imageMessage') && htextos) {
       var mediax = await quoted.download?.();
       conn.sendMessage(m.chat, { image: mediax, caption: htextos }, { quoted: m });
