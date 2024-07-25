@@ -9,9 +9,9 @@ if (!args[0]) throw `✳️ Provide Facebook Link\n\n📌 EXAMPLE:\n*${usedPrefi
     let res = await fetch(global.API('fgmods', '/api/downloader/fbdl', { url: args[0] }, 'apikey'))
     let data = await res.json()
 
-    let vid = ${vidcap}
     
-    conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `✅ vid`, m)
+    
+    conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `${vidcap}`, m)
     m.react(done)
   } catch (error) {
     m.reply(error)
