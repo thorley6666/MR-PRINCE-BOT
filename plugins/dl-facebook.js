@@ -2,7 +2,7 @@
 import fg from 'api-dylux';
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
   
-if (!args[0]) throw `✳️ ${mssg.noLink('Facebook')}\n\n📌 ${mssg.example} :\n*${usedPrefix + command}* past your fb video url`
+if (!args[0]) throw `✳️ Provide Facebook Link\n\n📌 EXAMPLE:\n*${usedPrefix + command}* past your fb video url`
   m.react(rwait)
 
   try {
@@ -12,7 +12,7 @@ if (!args[0]) throw `✳️ ${mssg.noLink('Facebook')}\n\n📌 ${mssg.example} :
     conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `✅ ${mssg.result}`, m)
     m.react(done)
   } catch (error) {
-    m.reply(mssg.error)
+    m.reply(error)
   }
 }
 handler.help = ['facebook'].map(v => v + ' <url>')
