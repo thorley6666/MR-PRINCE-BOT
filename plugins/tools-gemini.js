@@ -1,33 +1,30 @@
 import fetch from 'node-fetch';
 
-let handler = async (m, { conn, text }) => {
-  /**
-   * Ensure text is provided, either directly or via quoted message.
-   */
+let handler = async (m, { text, conn, usedPrefix, command }) => {
   if (!text && !(m.quoted && m.quoted.text)) {
-    throw ` Need query...`;
+    throw `❇️𝙀𝙭𝙖𝙢𝙥𝙡𝙚:\n *_${usedPrefix + command} What is islam?_*`;
   }
+
   if (!text && m.quoted && m.quoted.text) {
     text = m.quoted.text;
   }
-
-  // Send a "typing" reaction to indicate the bot is processing the request.
-  m.react('⏳')
-
   try {
-    /**
-     * Make a GET request to the Gemini API with the provided text.
-     */
-    let gpt = await fetch(global.API('fgmods', '/api/info/gemini', { text }, 'apikey'));
-    let res = await gpt.json();
+    m.react(rwait)
+    conn.sendPresenceUpdate('composing', m.chat);
+    const prompt = encodeURIComponent(text);
 
-    // Reply with the result from the API.
-    await m.reply(res.result);
-    m.react('✅') // Send a "success" reaction.
-  } catch (error) {
-    // Reply with an error message if the request fails.
-    m.reply(` Error: Try Later`);
-    console.error(error); // Log the error for debugging purposes.
+    const guru1 = await fetch(global.API('fgmods', '/api/info/gemini', { prompt }, 'apikey'));
+    try {
+      let response = guru1;
+      let data = await response.json();
+      let result = data.result;
+      if (!result) {   
+        throw new Error('No valid JSON response from the API');
+      }
+      m.react(done);
+    } catch (error) {
+      console.error('Error:', error);
+    throw `*ERROR*`;
   }
 };
 
