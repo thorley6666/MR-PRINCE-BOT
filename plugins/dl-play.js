@@ -22,7 +22,7 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
 ╰━━━━━━━━━━━━━━━━━━╯
 
 _Downloading..._` 
-conn.sendFile(m.chat, vid.thumbnail, 'play', play, m, null, rcanal)
+conn.sendFile(m.chat, vid.thumbnail, 'play', play, m, null)
   
   let q = isVideo ? '360p' : '128kbps' 
 try {
