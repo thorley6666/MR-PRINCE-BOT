@@ -20,7 +20,7 @@ let handler = async (m, { text, usedPrefix, command }) => {
     // Parse the response as JSON
     const data = await response.json();
     // Get the completion from the data
-    let result = data.BK9 || "SERVER ERROR";
+    let result = data || "SERVER ERROR";
     // Reply with the result
     m.reply(result);
 
