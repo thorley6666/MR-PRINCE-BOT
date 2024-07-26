@@ -1,18 +1,10 @@
-FROM node:lts-buster
+FROM quay.io/princemd/princebhay:latest
 
-RUN apt-get update && \
-  apt-get install -y \
-  ffmpeg \
-  imagemagick \
-  webp && \
-  apt-get upgrade -y && \
-  rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/PRINCE-GDS/MR-PRINCE-BOT /root/prince
 
-COPY package.json .
+WORKDIR /root/prince/
 
-RUN npm install && npm install qrcode-terminal
-
-COPY . .
+RUN npm install --platform=linuxmusl
 
 EXPOSE 5000
 
