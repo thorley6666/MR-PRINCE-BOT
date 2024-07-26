@@ -81,7 +81,7 @@ handler.before = async (m, { conn }) => {
 handler.help = ['play']
 handler.tags = ['downloader']
 handler.command = /^(play)$/i
-handler.limit = true
+handler.limit = false
 export default handler
 
 function formatBytes(bytes, decimals = 2) {
