@@ -22,8 +22,14 @@ let handler = async (m, { text, conn, usedPrefix, command }) => {
         throw new Error('No valid JSON response from the API');
       }
       m.react(done);
+      // You were missing the part where you send the result back to the user
+      m.reply(result);
     } catch (error) {
       console.error('Error:', error);
+      throw `*ERROR*`;
+    }
+  } catch (error) {
+    console.error('Error:', error);
     throw `*ERROR*`;
   }
 };
