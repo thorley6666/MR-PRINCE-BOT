@@ -33,7 +33,7 @@
 "url": "https://github.com/PRINCE-GDS/MR-PRINCE-BOT/issues" },
 "license": "GPL-3.0-or-later",
 "dependencies": {
-"@whiskeysockets/baileys": "^6.5.0",
+"@whiskeysockets/baileys": "^6.6.0",
 "@adiwajshing/keyed-db": "^0.2.4",
 "@bochilteam/scraper": "^4.2.4",
 "@brandond/findthelyrics": "^2.0.5",
@@ -113,16 +113,10 @@
 "yt-search": "^2.10.3",
 "google-it": "^1.6.3",
 "youtube-yts": "^2.0.0", 
-"youtubedl-core": "npm:ytdl-core@4.10.0",
 "youtubedl-core": "npm:@distube/ytdl-core",
-"youtubedl-core": "github:khlevon/node-ytdl-core#v4.11.4-patch.2",
 "ytdl-core": "^4.11.4"
-},
+    },
     "overrides": {
-        "cache-manager": "5.2.2"
-},
-"devDependencies": {
-"eslint": "^8.45.0",
-"eslint-config-google": "^0.14.0",
-"prettier": "^3.2.5"
-}}
+"cache-manager": "5.2.2"
+}
+}
