@@ -1,36 +1,30 @@
 import fetch from 'node-fetch';
 
-let handler = async (m, { text, usedPrefix, command }) => {
-  // Check if the text or quoted text is provided
+let handler = async (m, { text, conn, usedPrefix, command }) => {
   if (!text && !(m.quoted && m.quoted.text)) {
-    // Send a message to the user asking for input
-    m.reply(`Please provide some text or quote a message to get a response.`);
-    // Exit the function
-    return;
+    throw `❇️𝙀𝙭𝙖𝙢𝙥𝙡𝙚:\n *_${usedPrefix + command} What is islam?_*`;
   }
 
-  // Use the text or quoted text as the prompt
-  let prompt = text || m.quoted.text;
-
+  if (!text && m.quoted && m.quoted.text) {
+    text = m.quoted.text;
+  }
   try {
-    // React with a heart emoji
-    m.react("⏳");
-    // Fetch the response from the API
-    const response = await fetch(`https://ultimetron.guruapi.tech/gpt3?prompt=${prompt}`);
-    // Parse the response as JSON
-    const data = await response.json();
-    // Get the completion from the data
-    let result = data || "SERVER ERROR";
-    // Reply with the result
-    m.reply(result);
+    m.react(rwait)
+    conn.sendPresenceUpdate('composing', m.chat);
+    const prompt = encodeURIComponent(text);
 
-    // React with a checkmark emoji
-    m.react("✅");
-  } catch (error) {
-    // Log the error
-    console.error('Error:', error); 
-    // Reply with an error message
-    m.reply(`*ERROR*: ${error.message}`);
+    const guru1 = `https://ultimetron.guruapi.tech/gpt3?prompt=${prompt}`;
+    try {
+      let response = await fetch(guru1);
+      let data = await response.json();
+      let result = data.result;
+      if (!result) {   
+        throw new Error('No valid JSON response from the API');
+      }
+      m.react(done);
+    } catch (error) {
+      console.error('Error:', error);
+    throw `*ERROR*`;
   }
 };
 
