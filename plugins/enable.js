@@ -128,7 +128,16 @@ case 'autobio':
       chat.antiLink = isEnable
       break
       
-      
+      case 'antibotclone':
+      if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.antiBotClone = isEnable
+      break
+
       case 'nsfw':
       case '+18':
        if (m.isGroup) {
@@ -217,6 +226,7 @@ case 'autobio':
 │⛊ ${usedPrefix}ᴏɴ/ᴏғғ ɢʀᴏᴜᴘᴏɴʟʏ
 │⛊ ${usedPrefix}ᴏɴ/ᴏғғ ᴀᴜᴛᴏᴛʏᴘᴇ
 │⛊ ${usedPrefix}ᴏɴ/ᴏғғ ᴀᴜᴛᴏʙɪᴏ
+│⛊ ${usedPrefix}ᴏɴ/ᴏғғ ᴀɴᴛɪʙᴏᴛᴄʟᴏɴᴇ
 ╰━━━━━━━━━━━━━━━╯
 ╭━━━━⊱『 *Aᴅᴍɪɴ*』⊱━━━━╮
 │⛊ ${usedPrefix}ᴏɴ/ᴏғғ ᴡᴇʟᴄᴏᴍᴇ
