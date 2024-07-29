@@ -146,6 +146,7 @@ export async function handler(chatUpdate) {
                 if (!("useDocument" in chat)) chat.useDocument = false
                 if (!("viewOnce" in chat)) chat.viewOnce = false
                 if (!("viewStory" in chat)) chat.viewStory = false
+		if (!('antiBotClone' in chat)) chat.antiBotClone = false
                 if (!("welcome" in chat)) chat.welcome = false
                 if (!("chatbot" in chat)) chat.chatbot = false
                 if (!isNumber(chat.expired)) chat.expired = 0
@@ -155,6 +156,7 @@ export async function handler(chatUpdate) {
                     antiLink: false,
                     antiSticker: false,
                     antiToxic: false,
+		    antiBotClone: false,
                     detect: false,
                     expired: 0,
                     getmsg: true,
