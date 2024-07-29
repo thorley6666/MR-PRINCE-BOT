@@ -1,27 +1,40 @@
+import fg from 'api-dylux'
 
-import fg from 'api-dylux';
-let handler = async (m, { conn, text, args, usedPrefix, command }) => {
-  
-if (!args[0]) throw `✳️ Provide Facebook Link\n\n📌 EXAMPLE:\n*${usedPrefix + command}* past your fb video url`
-  m.react(rwait)
+const handler = async (m, { conn, args, usedPrefix, command }) => {
+  if (!args[0]) {
+    throw `✳️ Please send the link of a Facebook video\n\n📌 EXAMPLE :\n*${usedPrefix + command}* your fb link here `
+  }
+
+  const urlRegex =
+    /^(?:https?:\/\/)?(?:www\.)?(?:facebook\.com|fb\.watch)\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i
+  if (!urlRegex.test(args[0])) {
+    throw '⚠️ PLEASE GIVE A VALID URL.'
+  }
+
+  m.react(wait)
 
   try {
-  let res = await fetch(global.API('fgmods', '/api/downloader/fbdl', { url: args[0] }, 'apikey'))
-  let data = await res.json()
+    const result = await fg.fbdl(args[0])
+    const tex = `
+⊱ ─── {* PRINCE FBDL*} ─── ⊰
+↳ *VIDEO TITLE:* ${result.title}
+⊱ ────── {⋆🎉⋆} ────── ⊰`
 
-  if (res.status !== 200) {
-    m.reply(`Error: ${res.status} ${res.statusText}`)
-  } else {
-   
-    conn.sendFile(m.chat, data.result.HD, 'fb.mp4', `Here is your video`, m)
+    const response = await fetch(result.videoUrl)
+    const arrayBuffer = await response.arrayBuffer()
+    const videoBuffer = Buffer.from(arrayBuffer)
+
+    conn.sendFile(m.chat, videoBuffer, 'fb.mp4', tex, m)
     m.react(done)
+  } catch (error) {
+    console.log(error)
+    m.reply('⚠️ An error occurred while processing the request. Please try again later.')
   }
-} catch (error) {
-  m.reply(error)
 }
-}
-handler.help = ['facebook'].map(v => v + ' <url>')
-handler.tags = ['dl']
+
+handler.help = ['facebook <url>']
+handler.tags = ['downloader']
 handler.command = /^((facebook|fb)(downloder|dl)?)$/i
+handler.diamond = false
 
 export default handler
