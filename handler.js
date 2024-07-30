@@ -103,6 +103,8 @@ export async function handler(chatUpdate) {
                     user.level = 0
                 if (!('role' in user))
                     user.role = 'Tadpole'
+		    if (!('language' in user))
+                    user.language = 'es'
                 if (!('autolevelup' in user))
                     user.autolevelup = false
             } else {
@@ -120,6 +122,7 @@ export async function handler(chatUpdate) {
                     afkReason: '',
                     banned: false,
                     warn: 0,
+		    language: 'es',
                     level: 0,
                     role: 'Tadpole',
                     autolevelup: false,
