@@ -178,7 +178,7 @@ export async function handler(chatUpdate) {
                     chatbot: false
                 }
           
-                
+              
             let settings = global.db.data.settings[this.user.jid]
             if (typeof settings !== "object") global.db.data.settings[this.user.jid] = {}
             if (settings) {
@@ -198,14 +198,12 @@ export async function handler(chatUpdate) {
         } catch (e) {
             console.error(e)
         }
-        if (opts["nyimak"])
-            return
-        if (opts["pconly"] && m.chat.endsWith("g.us"))
-            return
-        if (opts["gconly"] && !m.chat.endsWith("g.us"))
-            return
-        if (opts["swonly"] && m.chat !== "status@broadcast")
-            return
+        if (opts["nyimak"]) return
+        if (opts["pconly"] && m.chat.endsWith("g.us")) return
+        if (opts["gconly"] && !m.chat.endsWith("g.us")) return
+	if (settings.solopv && m.chat.endsWith('g.us')) return  
+        if (settings.sologp && !m.chat.endsWith('g.us')) return
+        if (opts["swonly"] && m.chat !== "status@broadcast") return
         if (typeof m.text !== "string")
             m.text = ""
 
