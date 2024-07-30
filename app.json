@@ -11,12 +11,6 @@
       "description": "Put your Number as Owner",
       "required": true,
       "value": "923092668108;Prince"
-
-     },
-      "DATABASE_URL": {
-      "description": "your mongodb database url",
-      "required": false,
-      "value": ""
       },
      "MODE": {
       "description": "mode public or private",
