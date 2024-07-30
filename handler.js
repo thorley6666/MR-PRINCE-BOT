@@ -187,12 +187,16 @@ export async function handler(chatUpdate) {
                 if (!("restrict" in settings)) settings.restrict = false
                 if (!("restartDB" in settings)) settings.restartDB = 0
                 if (!("status" in settings)) settings.status = 0
+		if (!('solopv' in settings)) settings.solopv = false // el bot responde solo por dm
+                if (!('sologp' in settings)) settings.sologp = false // el bot responde solo en grupos
 
             } else global.db.data.settings[this.user.jid] = {
                 self: false,
                 autoread: false,
                 restrict: false,
                 restartDB: 0,
+		solopv: false, 
+                sologp: false,
                 status: 0
             }
         } catch (e) {
