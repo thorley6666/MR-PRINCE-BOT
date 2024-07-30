@@ -27,7 +27,7 @@ let handler = async (m, { conn: _conn, args, usedPrefix, command, isOwner }) => 
 
   let parent = args[0] && args[0] == 'plz' ? _conn : await global.conn
   if (!((args[0] && args[0] == 'plz') || (await global.conn).user.jid == _conn.user.jid)) {
-	throw `📌 This command can only be used in the main bot\n\n wa.me/${global.conn.user.jid.split`@`[0]}?text=${usedPrefix}botclone`
+	throw `📌 ${mssg.nobbot}\n\n wa.me/${global.conn.user.jid.split`@`[0]}?text=${usedPrefix}botclone`
 }
 
 	//=====
@@ -97,7 +97,7 @@ if (methodCode && !conn.authState.creds.registered) {
         let codeBot = await conn.requestPairingCode(cleanedNumber);
         codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot;
          //parent.sendFile(m.chat, 'https://i.ibb.co/SKKdvRb/code.jpg', 'qrcode.png', `➤ Code: *${codeBot}*\n\n${mssg.botqr}`, m)
-	 parent.sendMessage(m.chat, `➤ Code: *${codeBot}*\n\n*Use this Code to become a Bot*\n\n1. Click on the three dots in the top right corner.\n2. Tap Linked Devices.\n3. Select *Link with phone number*\n\n*Note:* The code is only valid for this number.`, 'https://telegra.ph/file/14f0099881126386f089d.jpg', [], codeBot, m) 
+	 parent.sendButton2(m.chat, `➤ Code: *${codeBot}*\n\n${mssg.botqr}`, mssg.ig, 'https://i.ibb.co/SKKdvRb/code.jpg', [], codeBot, null, m) 
         rl.close();
     }, 3000);
 }
@@ -126,9 +126,9 @@ async function connectionUpdate(update) {
       global.conns.splice(i, 1)
 
      if (code !== DisconnectReason.connectionClosed){ 
-        parent.sendMessage(conn.user.jid, {text : `⚠️Connection lost...`}, { quoted: m }) //reconectar
+        parent.sendMessage(conn.user.jid, {text : `⚠️ ${mssg.recon}`}, { quoted: m }) //reconectar
     } else {
-        parent.sendMessage(m.chat, {text : `⛔ The connection was closed, you will have to connect manually by sending the *ID*`}, { quoted: m }) // session cerrada
+        parent.sendMessage(m.chat, {text : `⛔ ${mssg.sesClose}`}, { quoted: m }) // session cerrada
     }
     }
     //----
@@ -137,10 +137,10 @@ async function connectionUpdate(update) {
     if (connection == 'open') {
     conn.isInit = true
     global.conns.push(conn)
-    await parent.sendMessage(m.chat, {text : args[0] ? `✅ Successfully connected` : `✅ *Connected successfully!*\n\nIn a few seconds, we will send you the *Id* that you must use to connect again\n\n*NOTE:* Leave the group *Prince ┃ ᴮᴼᵀ* `}, { quoted: m })
+    await parent.sendMessage(m.chat, {text : args[0] ? `✅ ${mssg.connet}` : `✅ ${mssg.connID}`}, { quoted: m })
     await sleep(5000)
     if (args[0]) return
-		await parent.sendMessage(conn.user.jid, {text : `✅ The next time you connect, send the following message to log in without scanning another *QR* code`}, { quoted: m })
+		await parent.sendMessage(conn.user.jid, {text : `✅ ${mssg.connMsg}`}, { quoted: m })
 		parent.sendMessage(conn.user.jid, {text : usedPrefix + command + " " + Buffer.from(fs.readFileSync("./bebots/" + authFolderB + "/creds.json"), "utf-8").toString("base64")}, { quoted: m })
 	  }
  
@@ -211,7 +211,7 @@ bbts()
 }
 handler.help = ['botclone']
 handler.tags = ['bebot']
-handler.command = ['bebot', 'serbot', 'jadibot', 'botclone', 'clonebot', 'subbot']
+handler.command = ['bebot', 'serbot', 'jadibot', 'botclone', 'clonebot']
 handler.rowner = false
 
 export default handler
