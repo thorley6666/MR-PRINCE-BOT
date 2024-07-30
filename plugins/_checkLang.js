@@ -6,9 +6,9 @@ export async function before(m,{ conn }) {
 	let lang = global.db.data.users[m.sender].language
 	
   let translations
-   if (lang === "es") {
+   if (lang === "en") {
       translations = es
-     } else if (lang === "en") {
+     } else if (lang === "es") {
       translations = en
      } else if (lang === "id") {
       translations = id
