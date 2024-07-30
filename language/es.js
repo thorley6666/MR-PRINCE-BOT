@@ -229,7 +229,7 @@ const translations = {
     expire: 'Expira en',
     ping: 'Velocidad',
     uptime: 'Tiempo Activo',
-    gpNsfw: (usedPrefix) => `El grupo no admite contenido nsfw\nUsa este grupo\n${bgp3}\n\nSi eres admin habilita con\n*${usedPrefix}enable* nsfw`,
+    gpNsfw: (usedPrefix) => `El grupo no admite contenido nsfw\nUsa este grupo\n\nSi eres admin habilita con\n*${usedPrefix}enable* nsfw`,
     nsfwAge: 'Eres menor de edad! vuelve cuando tengas mas de 18',
     addPremUser: 'Ahora te conviertes en Usuario Premium',
     banChat: 'Se desactivó el Bot en este grupo',
