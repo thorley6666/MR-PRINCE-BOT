@@ -27,7 +27,7 @@ const translations = {
     recon: 'Koneksi terputus...',
     sesClose: 'Koneksi ditutup, Anda harus terhubung secara manual dengan mengirimkan *ID*',
     connet: 'Terhubung berhasil',
-    connID: '*Terhubung berhasil!*\n\nDalam beberapa detik, kami akan mengirimkan *ID* yang harus Anda gunakan untuk terhubung kembali\n\n*CATATAN:* Keluar dari grup *DyLux ┃ BOT*\nsimpan tautan ini agar Anda dapat bergabung lagi nanti\nhttps://instabio.cc/fg98ff',
+    connID: '*Terhubung berhasil!*\n\nDalam beberapa detik, kami akan mengirimkan *ID* yang harus Anda gunakan untuk terhubung kembali\n\n*CATATAN:* Keluar dari grup *Prince┃ BOT*\nsimpan tautan ini agar Anda dapat bergabung lagi nanti',
     connMsg: 'Ketika Anda terhubung selanjutnya, kirim pesan berikut untuk masuk tanpa memindai kode QR lainnya',
     botlist: 'Daftar Sub Bot Aktif',
     newcode: (usedPrefix) => `Baik! Anda sekarang dapat menggunakan *${usedPrefix}jadibot* untuk meminta kode QR baru`,
@@ -229,7 +229,7 @@ const translations = {
     expire: 'Kadaluarsa dalam',
     ping: 'Kecepatan',
     uptime: 'Waktu Aktif',
-    gpNsfw: (usedPrefix) => `Grup ini tidak mengizinkan konten nsfw\nGunakan grup ini\n${bgp3}\n\nJika Anda adalah admin, aktifkan dengan\n*${usedPrefix}enable* nsfw`,
+    gpNsfw: (usedPrefix) => `Grup ini tidak mengizinkan konten nsfw\nGunakan grup ini\n\nJika Anda adalah admin, aktifkan dengan\n*${usedPrefix}enable* nsfw`,
     nsfwAge: 'Anda masih di bawah umur! Kembali ketika Anda berusia di atas 18 tahun',
     addPremUser: 'Anda sekarang menjadi Pengguna Premium',
     banChat: 'Bot dinonaktifkan di grup ini',
@@ -265,7 +265,7 @@ const translations = {
     adminH: 'Perintah ini hanya untuk *Admin Grup*',
     botAdmin: 'Untuk menggunakan perintah ini, saya perlu menjadi *Admin!*',
     unregH: 'Daftar untuk menggunakan fungsi ini. Ketik:\n\n*/reg*',
-    ig: `▢ Ikuti saya di Instagram\n${fgig}`
+    ig: `▢ Ikuti saya di Instagram`
 }
 
 export default translations
