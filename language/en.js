@@ -27,7 +27,7 @@ const translations = {
     recon: 'Connection lost...',
     sesClose: 'The connection has been closed, you have to manually connect by sending the *ID*',
     connet: 'Connected successfully',
-    connID: '*Connected successfully!*\n\nIn a few seconds, we will send you the *Id* that you must use to connect again\n\n*NOTE:* Leave the group *DyLux  ┃ ᴮᴼᵀ*\nsave this link so you can join later\nhttps://instabio.cc/fg98ff',
+    connID: '*Connected successfully!*\n\nIn a few seconds, we will send you the *Id* that you must use to connect again\n\n*NOTE:* Leave the group *Prince  ┃ ᴮᴼᵀ*\nsave this link so you can join later',
     connMsg: 'The next time you connect, send the following message to log in without scanning another *QR* code',
     botlist: 'List of Active Sub Bots',
     newcode: (usedPrefix) => `Great! You can now use *${usedPrefix}botclone* to request a new QR code`,
@@ -265,7 +265,7 @@ const translations = {
     adminH: 'This command is only for *Group Admins*',
     botAdmin: 'To use this command, I must be an *Administrator*!',
     unregH: 'Register to use this feature by typing:\n\n*/reg*',
-    ig: `▢ Follow me on Instagram\n${fgig}`
+    ig: `▢ Follow me on Instagram`
 }
 
 export default translations
