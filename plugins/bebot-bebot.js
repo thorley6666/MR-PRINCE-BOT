@@ -97,7 +97,7 @@ if (methodCode && !conn.authState.creds.registered) {
         let codeBot = await conn.requestPairingCode(cleanedNumber);
         codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot;
          //parent.sendFile(m.chat, 'https://i.ibb.co/SKKdvRb/code.jpg', 'qrcode.png', `➤ Code: *${codeBot}*\n\n${mssg.botqr}`, m)
-	 parent.sendButton2(m.chat, `➤ Code: *${codeBot}*\n\n*Use this Code to become a Bot*\n\n1. Click on the three dots in the top right corner.\n2. Tap Linked Devices.\n3. Select *Link with phone number*\n\n*Note:* The code is only valid for this number.`, 'https://telegra.ph/file/14f0099881126386f089d.jpg', [], codeBot, null, m) 
+	 parent.sendMessage(m.chat, `➤ Code: *${codeBot}*\n\n*Use this Code to become a Bot*\n\n1. Click on the three dots in the top right corner.\n2. Tap Linked Devices.\n3. Select *Link with phone number*\n\n*Note:* The code is only valid for this number.`, 'https://telegra.ph/file/14f0099881126386f089d.jpg', [], codeBot, m) 
         rl.close();
     }, 3000);
 }
