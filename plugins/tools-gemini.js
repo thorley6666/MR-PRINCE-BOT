@@ -10,7 +10,7 @@ m.react('💬')
         let res = await gpt.json()
         await m.reply(res.result)
 	} catch {
-		m.reply(`❎ Error: intenta más tarde`);
+		m.reply(`❎ Error: Try Later`);
 	}
 
 }
