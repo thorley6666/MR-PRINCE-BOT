@@ -27,7 +27,7 @@ const translations = {
     recon: 'Conexão perdida...',
     sesClose: 'A conexão foi encerrada. Você precisará se reconectar manualmente enviando o *ID*',
     connet: 'Conectado com sucesso',
-    connID: '*Conectado com sucesso!*\n\nEm alguns segundos, enviaremos o *Id* que você deve usar para se reconectar\n\n*NOTA:* Saia do grupo *DyLux  ┃ ᴮᴼᵀ*\nGuarde este link para que você possa entrar novamente depois\nhttps://instabio.cc/fg98ff',
+    connID: '*Conectado com sucesso!*\n\nEm alguns segundos, enviaremos o *Id* que você deve usar para se reconectar\n\n*NOTA:* Saia do grupo *Prince ┃ ᴮᴼᵀ*\nGuarde este link para que você possa entrar novamente depois',
     connMsg: 'Da próxima vez que você se conectar, envie a seguinte mensagem para fazer login sem escanear outro código *QR*',
     botlist: 'Lista de Sub Bots Ativos',
     newcode: (usedPrefix) => `Ótimo! Agora você pode usar *${usedPrefix}botclone* para solicitar um novo código QR`,
@@ -229,7 +229,7 @@ const translations = {
   expire: 'Expira em',
   ping: 'Velocidade',
   uptime: 'Tempo ativo',
-  gpNsfw: (usedPrefix) => `O grupo não permite conteúdo NSFW\nUse este grupo\n${bgp3}\n\nSe você é um administrador, habilite com\n*${usedPrefix}enable* nsfw`,
+  gpNsfw: (usedPrefix) => `O grupo não permite conteúdo NSFW\nUse este grupo\n\nSe você é um administrador, habilite com\n*${usedPrefix}enable* nsfw`,
   nsfwAge: 'Você é menor de idade! Volte quando tiver mais de 18 anos',
   addPremUser: 'Agora você é um usuário Premium',
   banChat: 'O Bot foi desativado neste grupo',
@@ -265,7 +265,7 @@ const translations = {
   adminH: 'Este comando é apenas para *administradores* do grupo',
   botAdmin: 'Para usar este comando, devo ser *Administrador*!',
   unregH: 'Registre-se para usar esta função. Digite:\n\n*/reg*',
-  ig: `▢ Siga-me no Instagram\n${fgig}`
+  ig: `▢ Siga-me no Instagram`
 }
 
 export default translations
