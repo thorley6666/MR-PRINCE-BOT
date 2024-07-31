@@ -1,32 +1,17 @@
-import { exec } from 'child_process'
+
 import speed from 'performance-now'
-
+import { spawn, exec, execSync } from 'child_process'
 let handler = async (m, { conn }) => {
-
-  let pingMsg = await conn.sendMessage(m.chat, {text: 'Pinging...'})
-
-  let timestamp = speed()
-
-  await exec('neofetch --stdout', async (error, stdout) => {
-
-    let latency = (speed() - timestamp).toFixed(4)
-
-    await conn.relayMessage(m.chat, {
-      protocolMessage: {
-        key: pingMsg.key,
-        type: 14,
-        editedMessage: {
-          conversation: `_🚀ᏢϴΝᏀ!...ᎠϴΝᎬ🍥${latency}𝕄𝕊_` 
-        }
-      }
-    }, {})
-
-  })
-
+         let timestamp = speed();
+         let latensi = speed() - timestamp;
+         exec(`neofetch --stdout`, (error, stdout, stderr) => {
+          let child = stdout.toString("utf-8");
+          let ssd = child.replace(/Memory:/, "Ram:");
+          m.reply(`🟢 *${mssg.ping}* : ${latensi.toFixed(4)} _ms_`);
+            });
 }
-
 handler.help = ['ping']
 handler.tags = ['main']
-handler.command = ['ping', 'speed', 'pn'] 
+handler.command = ['ping', 'speed']
 
 export default handler
