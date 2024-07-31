@@ -14,6 +14,8 @@ export async function before(m,{ conn }) {
       translations = id
      } else if (lang === "pt") {
       translations = pt
+     } else if (lang === "ur") {
+      translations = ur
       } else if (lang === "ar") {
       translations = ar
      } else {
